@@ -9,9 +9,16 @@ class Model():
 
         self.params = params
 
-    def run_model(self, do_save=False, filepath=''):
+    def run_model(self, verbose=False, do_save=False, filepath=''):
         '''
-        Runs an instance of the model for the
+        Runs an instance of the model
+
+        Inputs:
+            do_save - saves a csv of model results if set to True (boolean)
+            filepath - file name for model results (string)
+
+        Outputs:
+            None
         '''
 
         # Set initial conditions
@@ -28,10 +35,10 @@ class Model():
 
         # Set simulation settings
         time_step = 0.1
-        end_time = 16000
+        end_time = 8000
 
         # Run simulation
-        sim = rk.system_solver(initial_conds, end_time, time_step, self.params)
+        sim = rk.system_solver(initial_conds, end_time, time_step, self.params, verbose)
 
         self.sim = sim
 
@@ -41,6 +48,15 @@ class Model():
         return self.sim
 
     def save_model(self, filepath):
+        '''
+        Saves the results of the model as a csv
+
+        Input:
+            filepath - filepath - file name for model results (string)
+
+        Output:
+            None
+        '''
 
         file_name = "Simulations/"+filepath+".csv"
 
@@ -49,5 +65,42 @@ class Model():
             print('Model results saved to file: '+file_name)
         except:
             print("Simulation results do not exist")
+
+        return
+
+    def plot_specialist_cells(self):
+        '''
+        Plots time series of the 'specialist' cell populations
+        '''
+
+        components = ['x1', 'y1', 'ys1']
+        labels = ['Susceptible Cells', 'Infected Cells', 'Infected Specialist Cells']
+
+        pl.plot_components(self.sim, components, labels)
+
+        return
+
+    def plot_general_cells(self):
+        '''
+        Plots time series of the 'general' cell populations
+        '''
+
+        components = ['x1', 'x2', 'y2']
+        labels = ['Susceptible Specialist Cells', 'Susceptible General Cells', 'Infected General Cells']
+
+        pl.plot_components(self.sim, components, labels)
+
+        return
+
+    def plot_components(self, components, labels):
+        '''
+        Plots three components of the system
+
+        Inputs:
+            components - components to plot (list of strings)
+            labels - labels for plot titles (list of strings)
+        '''
+
+        pl.plot_components(self.sim, components, labels)
 
         return

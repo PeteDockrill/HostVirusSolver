@@ -29,10 +29,7 @@ basic_params = {'alpha': 0.5,
                 'kappa_1': 1.00,
                 'kappa_2': 1.00}
 
-model = Model(params=basic_params)
-sim = model.run_model()
-# Plot results
-special_components = ['Time', 'x1', 'ys1', 'zs']
-general_components = ['Time', 'x2', 'ys1', 'zs']
 
-pl.plot_3d(sim, special_components)
+model = Model(params=basic_params)
+sim = model.run_model(verbose=True)
+model.plot_general_cells()
