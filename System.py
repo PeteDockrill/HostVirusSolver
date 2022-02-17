@@ -1,16 +1,14 @@
 import numpy as np
 
 
-def host_virus(r):
+def host_virus(r, params):
     '''
     Calculates the rates of each variable at a particular timestep for
     the (nondimensionalised form of) the host-virus system.
 
     Inputs:
         r - a numpy array of positions in phase space
-        parameters - an array of parameter values
-
-
+        params - an dictionary of parameter values
     '''
 
     # Assign variables
@@ -23,20 +21,20 @@ def host_virus(r):
     z = r[6]
 
     # Assign parameters
-    alpha = 0.5
-    alphas = 2.0
-    beta1 = 1.50
-    beta2 = 2.00
-    mu = 0.10
-    gammas1 = 0.25
-    gamma1 = 0.25
-    gamma2 = 0.25
-    nu = 0.50
-    nus = 0.50
-    zeta = 0.22
-    zetas = 0.22
-    kappa1 = 1.00
-    kappa2 = 1.00
+    alpha = params['alpha']  # 0.5
+    alphas = params['alpha_s']  # 2.0
+    beta1 = params['beta_1']  # 1.50
+    beta2 = params['beta_2']  # 2.00
+    mu = params['mu']  # 0.10
+    gammas1 = params['gamma_1_s']  # 0.25
+    gamma1 = params['gamma_1']  # 0.25
+    gamma2 = params['gamma_2']  # 0.25
+    nu = params['nu']  # 0.50
+    nus = params['nu_s']  # 0.50
+    zeta = params['zeta']  # 0.22
+    zetas = params['zeta_s']  # 0.22
+    kappa1 = params['kappa_1']  # 1.00
+    kappa2 = params['kappa_2']  # 1.00
 
     # Calculate rates
     x1_dot = (x1*(1-x1-x2))-(x1*alpha*z)-(x1*alphas*zs)
