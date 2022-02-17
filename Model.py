@@ -9,7 +9,7 @@ class Model():
 
         self.params = params
 
-    def run_model(self, params=self.params, do_save=False, filepath=''):
+    def run_model(self, do_save=False, filepath=''):
         '''
         Runs an instance of the model for the
         '''
@@ -31,14 +31,14 @@ class Model():
         end_time = 16000
 
         # Run simulation
-        sim = rk.system_solver(initial_conds, end_time, time_step, params)
+        sim = rk.system_solver(initial_conds, end_time, time_step, self.params)
 
         self.sim = sim
 
         if do_save:
             self.save_model(filepath)
 
-        return
+        return self.sim
 
     def save_model(self, filepath):
 

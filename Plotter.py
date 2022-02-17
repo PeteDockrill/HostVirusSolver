@@ -36,7 +36,7 @@ def plot_components(input):
     plt.show()
 
 
-def plot_3d(input, filepath):
+def plot_3d(input, do_save=False, filepath=''):
     """
     Plots the system solution in 3D
 
@@ -58,7 +58,10 @@ def plot_3d(input, filepath):
     plt.axis('off')
     fig = plt.gcf()
     plt.draw()
-    plt.savefig(filepath+'_3D_plot.jpg', dpi=400)
+
+    if do_save:
+        plt.savefig(filepath+'_3D_plot.jpg', dpi=400)
+
     plt.show()
     #plt.savefig('Rossler_no_background.pdf', dpi = 500)
 

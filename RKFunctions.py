@@ -13,7 +13,6 @@ def runge_kutta_step(t_0, r_0, delta, params):
             delta - the time step (float)
             params - model parameters (dict)
 
-
     Returns:
             r_n - the updated position (numpy array)
     '''
@@ -22,7 +21,7 @@ def runge_kutta_step(t_0, r_0, delta, params):
     k_2 = system.host_virus(t_0 + (delta/2), r_0 + (delta*(k_1/2)), params)
     k_3 = system.host_virus(t_0 + (delta/2), r_0 + (delta*(k_2/2)), params)
     k_4 = system.host_virus(t_0 + delta, r_0 + (delta*k_3), params)
-    r_n = r_0 + ((delta/6)*(k_1 + (2*k_2) + (2*k_3) + k_4), params)
+    r_n = r_0 + ((delta/6)*(k_1 + (2*k_2) + (2*k_3) + k_4))
     t_n = t_0 + delta
 
     return r_n

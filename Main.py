@@ -12,10 +12,27 @@ import Plotter as pl
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from mpl_toolkits.mplot3d import Axes3D
+from Model import Model
 
-#file_path = "alpha0.5_alphas_2.0_"+str(end_time/time_step)+"s_x1"
+basic_params = {'alpha': 0.5,
+                'alpha_s': 2.0,
+                'beta_1': 1.50,
+                'beta_2': 2.00,
+                'mu': 0.10,
+                'gamma_1_s': 0.25,
+                'gamma_1': 0.25,
+                'gamma_2': 0.25,
+                'nu': 0.50,
+                'nu_s': 0.50,
+                'zeta': 0.22,
+                'zeta_s': 0.22,
+                'kappa_1': 1.00,
+                'kappa_2': 1.00}
 
+model = Model(params=basic_params)
+sim = model.run_model()
 # Plot results
 special_components = ['Time', 'x1', 'ys1', 'zs']
 general_components = ['Time', 'x2', 'ys1', 'zs']
-pl.plot_3d(sim, special_components, file_path)
+
+pl.plot_3d(sim, special_components)

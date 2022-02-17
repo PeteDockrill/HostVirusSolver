@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def host_virus(r, params):
+def host_virus(t, r, params):
     '''
     Calculates the rates of each variable at a particular timestep for
     the (nondimensionalised form of) the host-virus system.
