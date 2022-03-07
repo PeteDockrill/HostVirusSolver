@@ -50,7 +50,7 @@ def system_solver(initial_conditions, end, delta, params, verbose, do_save=False
     dimension = len(initial_conditions)-1
     solutions = np.array([initial_conditions])
 
-    print("Simulation beginning for "+str(len(times))+" time steps.")
+    print("Simulation beginning for "+str(len(times)+1)+" time steps.")
     print("Number of dimensions: "+str(dimension))
 
     for i, time in enumerate(times):

@@ -9,7 +9,7 @@ class Model():
 
         self.params = params
 
-    def run_model(self, verbose=False, do_save=False, filepath=''):
+    def run(self, verbose=False, do_save=False, filepath=''):
         '''
         Runs an instance of the model
 
@@ -68,7 +68,7 @@ class Model():
 
         return
 
-    def plot_specialist_cells(self):
+    def plot_specialist_cells(self, xmax=8000):
         '''
         Plots time series of the 'specialist' cell populations
         '''
@@ -76,11 +76,11 @@ class Model():
         components = ['x1', 'y1', 'ys1']
         labels = ['Susceptible Cells', 'Infected Cells', 'Infected Specialist Cells']
 
-        pl.plot_components(self.sim, components, labels)
+        pl.plot_components(self.sim, components, labels, xmax=xmax)
 
         return
 
-    def plot_general_cells(self):
+    def plot_general_cells(self, xmax=8000):
         '''
         Plots time series of the 'general' cell populations
         '''
@@ -88,11 +88,11 @@ class Model():
         components = ['x1', 'x2', 'y2']
         labels = ['Susceptible Specialist Cells', 'Susceptible General Cells', 'Infected General Cells']
 
-        pl.plot_components(self.sim, components, labels)
+        pl.plot_components(self.sim, components, labels, xmax=xmax)
 
         return
 
-    def plot_components(self, components, labels):
+    def plot_components(self, components, labels, xmax=8000):
         '''
         Plots three components of the system
 
@@ -101,6 +101,28 @@ class Model():
             labels - labels for plot titles (list of strings)
         '''
 
-        pl.plot_components(self.sim, components, labels)
+        pl.plot_components(self.sim, components, labels, xmax=xmax)
+
+        return
+
+
+class MultiModel():
+
+    def __init__(self, models, params):
+
+        self.n_models = models.size()
+        self.models = models
+        self.params = params
+
+    def run(self):
+
+        for i, model in enumerate(self.models):
+            model.run()
+
+        return
+
+    def plot(self, component, parameter, parameter_values):
+
+        pl.plot_models(self.models, component, parameter, parameter_values, label)
 
         return

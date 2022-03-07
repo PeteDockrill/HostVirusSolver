@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 
-def plot_components(input, components, labels, do_save=False, filepath=''):
+def plot_components(input, components, labels, do_save=False, xmax=8000, filepath=''):
     '''
     Plots the spatial coordinates as a function of time
 
@@ -18,22 +18,56 @@ def plot_components(input, components, labels, do_save=False, filepath=''):
 
     ax1 = fig.add_subplot(311)
     ax1.plot(input.Time, input[components[0]])
+    ax1.set_xlim(0, xmax)
     ax1.grid(True)
     ax1.set_title(labels[0], fontsize=12)
 
     ax2 = fig.add_subplot(312)
     ax2.plot(input.Time, input[components[1]])
+    ax2.set_xlim(0, xmax)
     ax2.grid(True)
     ax2.set_title(labels[1], fontsize=12)
 
     ax3 = fig.add_subplot(313)
     ax3.plot(input.Time, input[components[2]])
+    ax3.set_xlim(0, xmax)
     ax3.grid(True)
     ax3.set_title(labels[2], fontsize=12)
     ax3.set_xlabel('Time', fontsize=12)
 
     plt.setp(ax1.get_xticklabels(), visible=False)
     plt.setp(ax2.get_xticklabels(), visible=False)
+
+    fig = plt.gcf()
+    plt.draw()
+
+    if do_save:
+        plt.savefig('Plots/'+filepath+'.jpg', dpi=400)
+
+    plt.show()
+
+    return
+
+
+def plot_models(models, component, parameter, parameter_values, label, do_save=False, xmax=8000, filepath=''):
+    '''
+    Plots the spatial coordinates as a function of time
+
+    Arguments:
+            input - the time and spatial coordinates of the system (panda dataframe)
+            components - components of the model to plot (list)
+            labels - labels for plot (list)
+    '''
+
+    fig = plt.figure(figsize=(12, 9))
+
+    ax = fig.add_subplot(111)
+    for i, model in enumerate(models):
+        ax.plot(model.Time, model[component], label=parameter+" = "+parameter_values[i])
+
+    ax.set_xlim(0, xmax)
+    ax.grid(True)
+    ax.set_title(label, fontsize=12)
 
     fig = plt.gcf()
     plt.draw()
