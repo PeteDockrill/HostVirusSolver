@@ -30,6 +30,11 @@ basic_params = {'alpha': 0.5,
                 'kappa_2': 1.00}
 
 
-model = Model(params=basic_params)
-sim = model.run_model(verbose=True)
-model.plot_general_cells()
+def main(params: dict) -> None:
+    model = Model(params=params)
+    sim = model.run_model(verbose=True)
+    model.plot_general_cells()
+
+
+if __name__ == '__main__':
+    main(basic_params)
