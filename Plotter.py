@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from mpl_toolkits.mplot3d import Axes3D
+import pandas as pd
 import numpy as np
 from typing import List
 
 
-def plot_components(input, components: List[str], labels: List[str], do_save: bool = False, xmax: int = 8000, filepath: str = '') -> None:
+def plot_components(input: pd.DataFrame, components: List[str], labels: List[str], do_save: bool = False, xmax: int = 8000, filepath: str = '') -> None:
     '''
     Plots the spatial coordinates as a function of time
 
