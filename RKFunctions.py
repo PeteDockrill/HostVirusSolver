@@ -1,9 +1,12 @@
 import numpy as np
 import pandas as pd
 import System as system
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-def runge_kutta_step(t_0, r_0, delta, params):
+def runge_kutta_step(t_0: np.array, r_0: np.array, delta: float, params: dict) -> np.array:
     '''
     Performs one time step of a fourth-order Runge-Kutta method.
 
@@ -27,7 +30,7 @@ def runge_kutta_step(t_0, r_0, delta, params):
     return r_n
 
 
-def system_solver(initial_conditions, end, delta, params, verbose, do_save=False, filepath=''):
+def system_solver(initial_conditions: np.array, end: float, delta: float, params: dictt, verbose: bool, do_save: bool = False, filepath: str = '') -> pd.DataFrame:
     '''
     Produces a simulated dataset for the system
 
@@ -37,6 +40,7 @@ def system_solver(initial_conditions, end, delta, params, verbose, do_save=False
                 end - the end point of the simultion (float)
                 delta - the time step of the simulation (float)
                 params - parameters for the system (dict)
+                verbose - boolean to print simulation progress
 
             Optional:
                 do_save - model output saved as csv if set to True
@@ -63,7 +67,8 @@ def system_solver(initial_conditions, end, delta, params, verbose, do_save=False
             if progress_percentage % 5 == 0:
                 print("Simulation "+str(progress_percentage)+"\% complete")
 
-    solutions_dict = {'Time': solutions[:, 0], 'x1': solutions[:, 1], 'x2': solutions[:, 2], 'ys1': solutions[:, 3], 'y1': solutions[:, 4], 'y2': solutions[:, 5], 'zs': solutions[:, 6], 'z': solutions[:, 7]}
+    solutions_dict = {'Time': solutions[:, 0], 'x1': solutions[:, 1], 'x2': solutions[:, 2],
+                      'ys1': solutions[:, 3], 'y1': solutions[:, 4], 'y2': solutions[:, 5], 'zs': solutions[:, 6], 'z': solutions[:, 7]}
     solutions = pd.DataFrame(solutions_dict)
 
     print("Simulation complete!")

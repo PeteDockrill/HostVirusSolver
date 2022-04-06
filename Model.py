@@ -1,15 +1,16 @@
 import numpy as np
 import RKFunctions as rk
 import Plotter as pl
+import pandas as pd
+from typing import List
 
 
 class Model():
 
-    def __init__(self, params):
-
+    def __init__(self, params: dict) -> None:
         self.params = params
 
-    def run(self, verbose=False, do_save=False, filepath=''):
+    def run(self, verbose: bool = False, do_save: bool = False, filepath: str = '') -> pd.DataFrame:
         '''
         Runs an instance of the model
 
@@ -47,7 +48,7 @@ class Model():
 
         return self.sim
 
-    def save_model(self, filepath):
+    def save_model(self, filepath: str) -> None:
         '''
         Saves the results of the model as a csv
 
@@ -66,9 +67,7 @@ class Model():
         except:
             print("Simulation results do not exist")
 
-        return
-
-    def plot_specialist_cells(self, xmax=8000):
+    def plot_specialist_cells(self, xmax: int = 8000) -> None:
         '''
         Plots time series of the 'specialist' cell populations
         '''
@@ -78,9 +77,7 @@ class Model():
 
         pl.plot_components(self.sim, components, labels, xmax=xmax)
 
-        return
-
-    def plot_general_cells(self, xmax=8000):
+    def plot_general_cells(self, xmax: int = 8000) -> None:
         '''
         Plots time series of the 'general' cell populations
         '''
@@ -90,9 +87,7 @@ class Model():
 
         pl.plot_components(self.sim, components, labels, xmax=xmax)
 
-        return
-
-    def plot_components(self, components, labels, xmax=8000):
+    def plot_components(self, components: List[str], labels: List[str], xmax=8000) -> None:
         '''
         Plots three components of the system
 
@@ -103,26 +98,26 @@ class Model():
 
         pl.plot_components(self.sim, components, labels, xmax=xmax)
 
-        return
-
 
 class MultiModel():
 
     def __init__(self, models, params):
 
-        self.n_models = models.size()
+        self.n_models = len(models)
         self.models = models
         self.params = params
 
-    def run(self):
+    def run(self) -> List[pd.DataFrame]:
 
-        for i, model in enumerate(self.models):
-            model.run()
+        sims = []
+        for model in self.models:
+            sim = model.run()
+            sims.append(sim)
 
-        return
-
-    def plot(self, component, parameter, parameter_values):
-
-        pl.plot_models(self.models, component, parameter, parameter_values, label)
+        self.sims = sims
 
         return
+
+    def plot(self, component: str, parameter: str, parameter_values: List[float], xmax: int = 8000) -> None:
+
+        pl.plot_models(self.sims, component, parameter, parameter_values, xmax=xmax, label='')

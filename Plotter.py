@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+from typing import List
 
 
-def plot_components(input, components, labels, do_save=False, xmax=8000, filepath=''):
+def plot_components(input, components: List[str], labels: List[str], do_save: bool = False, xmax: int = 8000, filepath: str = '') -> None:
     '''
     Plots the spatial coordinates as a function of time
 
@@ -46,10 +47,8 @@ def plot_components(input, components, labels, do_save=False, xmax=8000, filepat
 
     plt.show()
 
-    return
 
-
-def plot_models(models, component, parameter, parameter_values, label, do_save=False, xmax=8000, filepath=''):
+def plot_models(sims, component: str, parameter: str, parameter_values, label: List[str], do_save: bool = False, xmax: int = 8000, filepath: str = '') -> None:
     '''
     Plots the spatial coordinates as a function of time
 
@@ -62,11 +61,12 @@ def plot_models(models, component, parameter, parameter_values, label, do_save=F
     fig = plt.figure(figsize=(12, 9))
 
     ax = fig.add_subplot(111)
-    for i, model in enumerate(models):
-        ax.plot(model.Time, model[component], label=parameter+" = "+parameter_values[i])
+    for i, sim in enumerate(sims):
+        ax.plot(sim.Time, sim[component], label=parameter+" = "+str(parameter_values[i]))
 
     ax.set_xlim(0, xmax)
     ax.grid(True)
+    ax.legend(loc='upper right', fontsize=12)
     ax.set_title(label, fontsize=12)
 
     fig = plt.gcf()
@@ -77,10 +77,8 @@ def plot_models(models, component, parameter, parameter_values, label, do_save=F
 
     plt.show()
 
-    return
 
-
-def plot_3d(input, do_save=False, filepath=''):
+def plot_3d(input: pd.DataFrame, do_save: bool = False, filepath: str = '') -> None:
     """
     Plots the system solution in 3D
 
@@ -110,7 +108,7 @@ def plot_3d(input, do_save=False, filepath=''):
     #plt.savefig('Rossler_no_background.pdf', dpi = 500)
 
 
-def plot_all_3d(input, components, filepath):
+def plot_all_3d(input: pd.DataFrame, components: List[str], filepath: str) -> None:
     '''
     Plots the system solution in 3D alongside the timeseries of the specified components
 
