@@ -30,7 +30,7 @@ def runge_kutta_step(t_0: np.array, r_0: np.array, delta: float, params: dict) -
     return r_n
 
 
-def system_solver(initial_conditions: np.array, end: float, delta: float, params: dictt, verbose: bool, do_save: bool = False, filepath: str = '') -> pd.DataFrame:
+def system_solver(initial_conditions: np.array, end: float, delta: float, params: dict, verbose: bool, do_save: bool = False, filepath: str = '') -> pd.DataFrame:
     '''
     Produces a simulated dataset for the system
 
