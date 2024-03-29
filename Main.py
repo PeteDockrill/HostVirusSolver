@@ -32,7 +32,7 @@ basic_params = {'alpha': 0.5,
 
 def main(params: dict) -> None:
     model = Model(params=params)
-    sim = model.run_model(verbose=True)
+    sim = model.run(verbose=True)
     model.plot_general_cells()
 
 

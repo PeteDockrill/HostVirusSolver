@@ -68,7 +68,6 @@ def host_virus_immune(t: float, r: np.array, params: dict) -> np.array:
     y2 = r[4]
     zs = r[5]
     z = r[6]
-    c = r[7]
 
     # Assign parameters
     alpha = params['alpha']  # 0.5
